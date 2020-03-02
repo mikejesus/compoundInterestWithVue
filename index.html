@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Compound Interest Calculator</title>
+    <script src="vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+        
+        .form-holder {
+            width: 500px;
+            height: 500px;
+            margin: 2% auto;
+            background-color: #ffffff;
+            padding: 15px;
+        }
+        
+        input[type="number"] {
+            padding: 10px 20px;
+            border: 1px solid #999;
+            border-radius: 3px;
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        
+        input[type="submit"],
+        button {
+            padding: 10px 20px;
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: blue;
+            /* font-size: 20px; */
+            margin-top: 10px;
+            font-family: "helvetica";
+        }
+        
+        .description {
+            text-align: center;
+            color: red;
+            margin-bottom: 5px;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        .result {
+            background-color: blue;
+            padding: 8px;
+            color: white;
+            font-size: 22px;
+            border: 1px solid #ccc;
+            line-height: 50px;
+        }
+        
+        #compound {
+            background-color: lightblue;
+            color: black;
+            padding: 2px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-holder">
+            <h1>Compound Interest Calculator</h1>
+            <p class="description">Kindly enter the appropriate details in the form below</p>
+
+            <form action="#" method="GET" class="input-group">
+                <input type="number" v-model="principal" placeholder="Principal amount" />
+                <input type="number" v-model="rate" placeholder="Interest Rate" />
+                <input type="number" v-model="timeCompound" placeholder="Time Compounded Per Year (4 means quarterly)" />
+                <input type="number" v-model="timePeriod" placeholder="Time Period" />
+                <!-- <button type="submit" v-on:click="calculateCompound"> Calculate </button> -->
+
+                <p class="result">The principal amount is {{principal}}</p>
+
+                <p class="result"> The Compound interest generated at the rate of {{rate}} % computed at {{timeCompound}} times quarterly for {{timePeriod}} year(s) is <span id="compound">{{calculateCompound}}</span> </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: ".container",
+            data: {
+                principal: null,
+                rate: null,
+                timeCompound: null,
+                timePeriod: null,
+                compoundInt: null,
+                // annualRate: 100,
+                // calculate1: annualRate / timeCompound,
+                // calculate2: timeCompound * timePeriod,
+                // result: principal * calculate2,
+            },
+            computed: {
+                calculateCompound: function() {
+
+                    let annualRate = this.rate / 100;
+                    let calculate1 = annualRate / this.timeCompound;
+                    let calculate2 = this.timeCompound * this.timePeriod;
+                    this.compoundInt = this.principal * Math.pow((1 + calculate1), calculate2);
+                    return this.compoundInt;
+                }
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>
