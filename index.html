@@ -120,7 +120,7 @@
                     let calculate1 = annualRate / this.timeCompound;
                     let calculate2 = this.timeCompound * this.timePeriod;
                     this.compoundInt = this.principal * Math.pow((1 + calculate1), calculate2);
-                    return this.compoundInt;
+                    return this.compoundInt.toFixed(2);
                 }
             }
         });
